@@ -27,7 +27,6 @@ public class GasSmokeRestAPI {
 	@Autowired
 	private GasSmokeSensorService gasSmokeSensorService;
 	
-	//TODO http://localhost:8080/get-all-gas-smoke-sensors
 //	@RequestMapping(value="/get-all-gas-smoke-sensors", method=RequestMethod.GET)
 //	public Iterable<RFID> getAllGasSmokeSensors() {	
 //		
