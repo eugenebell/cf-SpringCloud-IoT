@@ -1,0 +1,9 @@
+#org.springsource.ide.eclipse.gradle.core.preferences.GradleImportPreferences
+#Sun Sep 20 20:15:15 IST 2015
+addResourceFilters=true
+afterTasks=afterEclipseImport;
+beforeTasks=cleanEclipse;eclipse;
+enableAfterTasks=true
+enableBeforeTasks=true
+enableDependendencyManagement=true
+projects=;cf-API-Microservice;cf-ClimateMicroService;cf-cloud-config-server;cf-Dashboard-MicroService;cf-eureka-server;cf-RFID-TiltSW-MicroService;

@@ -27,7 +27,7 @@ public class RFIDReceiver {
 			System.out.println("Message did not have the corect number of values!!! [" + msg + "]");
 		} else {
 			System.out.println("Received [" + msg + "]");
-			// TODO
+		
 			// Get RFID based on rfid
 			// store event
 			// check if user/rfid is active
