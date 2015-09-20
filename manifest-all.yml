@@ -1,0 +1,22 @@
+---
+timeout: 180
+instances: 1
+memory: 512M
+env:
+    SPRING_PROFILES_DEFAULT: cloud
+    JAVA_OPTS: -Djava.security.egd=file:///dev/urandom
+applications:
+#- name: eureka-server
+#  path: registryServer/build/libs/registry-0.2.jar
+- name: iot-api
+  path: cf-API-Microservice/build/libs/api-microservice-0.1.jar
+  services: [ eureka-service, iotPostgresDB, iotMongoDB ]
+- name: climate-microservice
+  path: cf-ClimateMicroService/build/libs/climate-microservice-0.1.jar
+  services: [ eureka-service, iotPostgresDB, iotMongoDB ]
+- name: dashboard-microservice
+  path: cf-Dashboard-MicroService/build/libs/web-0.2.jar
+  services: [ eureka-service ]
+- name: sensors-microservice
+  path: cf-RFID-TiltSW-MicroService/build/libs/sensors-microservice-0.1.jar
+  services: [ eureka-service, iotPostgresDB ]

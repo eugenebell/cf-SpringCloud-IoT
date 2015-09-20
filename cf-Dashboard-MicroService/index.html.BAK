@@ -1,0 +1,816 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="Thing">
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<meta name="description" content="">
+		<meta name="author" content="">
+		<link rel="icon" type="image/png" href="/assets/img/server-medium.png">
+
+		<title>The Thing</title>
+
+		<link rel="stylesheet" href="/assets/css/bootstrap.min.css">
+		<link rel="stylesheet" href="/assets/css/bootstrap-datetimepicker.min.css">
+		<link rel="stylesheet" href="/assets/css/font-awesome.css">
+
+		<!-- Custom styles for this template -->
+		<link href="/assets/css/dashboard.css" rel="stylesheet">
+
+		<!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+		<!--[if lt IE 9]>
+			<script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+			<script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+		<![endif]-->
+	</head>
+
+	<body ng-controller="ThingController">
+
+		<nav class="navbar navbar-inverse navbar-fixed-top">
+			<div class="container-fluid">
+				<div class="navbar-header">
+					<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+						<span class="sr-only">Toggle navigation</span>
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+					</button>
+					<a class="navbar-brand" href="#">The Thing</a>
+				</div>
+				<!--<div id="navbar" class="navbar-collapse collapse">
+					<ul class="nav navbar-nav navbar-right">
+						<li><a href="#">Dashboard</a></li>
+						<li><a href="#">Settings</a></li>
+						<li><a href="#">Profile</a></li>
+						<li><a href="#">Help</a></li>
+					</ul>
+					<form class="navbar-form navbar-right">
+						<input type="text" class="form-control" placeholder="Search...">
+					</form>
+				</div>-->
+			</div>
+		</nav>
+
+		<div class="container-fluid">
+			
+			<div class="row">
+				
+				<div class="col-sm-3 col-md-2 sidebar">
+					<ul class="nav nav-sidebar">
+						<li class="active"><a href="#dashboard">Dashboard <span class="sr-only">(current)</span></a></span></li>
+						<li><a href="#climate">Climate</a></li>
+						<li><a href="#switches">Switches</a></li>
+						<li><a href="#users">Users</a></li>
+					</ul>
+
+					<label for="datetimepickerFrom">From</label>
+					<div class='input-group date'>
+						<input type='text' class="form-control" id="datetimepickerFrom" />
+						<span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span>
+						</span>
+					</div>
+					<label for="datetimepickerTo">To</label>
+					<div class='input-group date'>
+						<input type='text' class="form-control" id="datetimepickerTo" />
+						<span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span>
+						</span>
+					</div>
+					<button type="button" class="btn btn-default" ng-click="refreshData()" style="display: block; width: 100%; margin-top:10px;">Refresh Data</button>
+					<!--
+					<ul class="nav nav-sidebar">
+						<li><a href="">Nav item</a></li>
+						<li><a href="">Nav item again</a></li>
+						<li><a href="">One more nav</a></li>
+						<li><a href="">Another nav item</a></li>
+						<li><a href="">More navigation</a></li>
+					</ul>
+					<ul class="nav nav-sidebar">
+						<li><a href="">Nav item again</a></li>
+						<li><a href="">One more nav</a></li>
+						<li><a href="">Another nav item</a></li>
+					</ul>
+				-->
+				</div>
+				<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+					<a name="dashboard">&nbsp;</a>
+					<h1 class="page-header">Dashboard</h1>
+
+					<div class="row placeholders">
+						<div class="col-xs-6 col-sm-3 placeholder">
+							<img data-src="holder.js/200x200/auto/vine" class="img-responsive" alt="Generic placeholder thumbnail">
+							<h4>Overview</h4>
+							<span class="text-muted">OK</span>
+						</div>
+						<div class="col-xs-6 col-sm-3 placeholder">
+							<img data-src="holder.js/200x200/auto/sky" class="img-responsive" alt="Generic placeholder thumbnail">
+							<h4>Climate</h4>
+							<span class="text-muted">OK</span>
+						</div>
+						<div class="col-xs-6 col-sm-3 placeholder">
+							<img data-src="holder.js/200x200/auto/vine" class="img-responsive" alt="Generic placeholder thumbnail">
+							<h4>Users</h4>
+							<span class="text-muted">OK</span>
+						</div>
+						<div class="col-xs-6 col-sm-3 placeholder">
+							<img data-src="holder.js/200x200/auto/lava" class="img-responsive" alt="Generic placeholder thumbnail">
+							<h4>Switches</h4>
+							<span class="text-muted">WARNING</span>
+						</div>
+
+					</div>
+					
+					<a name="climate">&nbsp;</a>
+					<h1 class="page-header">Climate</h1>
+					<div class="row placeholders">
+						<div class="col-xs-12 col-sm-6 col-md-4">
+							<div class="panel panel-default">
+							<div class="panel-heading">Statistics</div>
+							<table class="table table-striped">
+								<thead>
+									<tr>
+										<th></th>
+										<th class="text-right">Temperature</th>
+										<th class="text-right">Humidity</th>
+									<tr>
+								</thead>
+								<tbody>
+									<tr><th>Min</th><td class="text-right">{{ weatherStats.temp.min }}</td><td class="text-right">{{ weatherStats.humi.min }}</td></tr>
+									<tr><th>Avg</th><td class="text-right">{{ weatherStats.temp.avg }}</td><td class="text-right">{{ weatherStats.humi.avg }}</td></tr>
+									<tr><th>Max</th><td class="text-right">{{ weatherStats.temp.max }}</td><td class="text-right">{{ weatherStats.humi.max }}</td></tr>
+								</tbody>
+							</table>
+							</div>
+						</div>
+
+						<div class="col-xs-12 col-sm-6 col-md-4">
+							<div class="panel panel-default">
+							<div class="panel-heading">Current</div>
+							<table class="table table-striped">
+
+								<tbody>
+									<tr><th>Temperature</th><td class="text-right">{{ weatherStats.temp.latest }}</td></tr>
+									<tr><th>Humidity</th><td class="text-right">{{ weatherStats.humi.latest }}</td></tr>
+								</tbody>
+							</table>
+							</div>
+						</div>
+					
+						<div class="col-xs-12 col-sm-12">
+							<div class="panel panel-default">
+							<div class="panel-heading">History</div>
+							<div id="container-weather" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
+							</div>
+						</div>
+					</div>
+
+					<a name="switches">&nbsp;</a>
+					<h1 class="page-header">Switches</h1>
+					<div class="row placeholders">
+						<!--
+						<div class="col-xs-12 col-sm-8 col-lg-4">
+							<div class="panel panel-default">
+							<div class="panel-heading">Switches</div>
+							<table class="table table-striped">
+								<thead>
+									<tr>
+										<th>ID</th>
+										<th>SwitchId</th>
+										<th>createdTime</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr ng-repeat="tiltSwitch in tiltSwitches">
+										<td>{{ tiltSwitch.id }}</td>
+										<td>{{ tiltSwitch.tiltSwitchId }}</td>
+										<td>{{ tiltSwitch.createdTime | date:'yyyy-MM-dd HH:mm:ss' }}</td>
+									</tr>
+								</tbody>
+							</table>
+							</div>
+						</div>
+						-->
+					
+						<div class="col-xs-12 col-sm-12">
+							<div class="panel panel-default">
+							<div class="panel-heading">History</div>
+							<div id="container-switches" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
+							</div>
+						</div>
+					</div>
+					
+					<a name="users">&nbsp;</a>
+					<h1 class="page-header">Users</h1>
+					<div class="row placeholders">
+						<div class="col-xs-12 col-sm-6">
+							<div class="panel panel-default">
+							<div class="panel-heading">Users</div>
+							<table class="table table-striped">
+								<thead>
+									<tr>
+										<th>ID</th>
+										<th>Name</th>
+										<th>RFID</th>
+										<th>RFID State</th>
+										<th>Actions</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr ng-repeat="user in users">
+										<td>{{ user.id }}</td>
+										<td>{{ user.firstname }}&nbsp;{{ user.lastname }}</td>
+										<td>{{ user.rfid.rfid }}</td>
+										<td>{{ user.rfid.active }}</td>
+										<td><button type="button" class="btn btn-primary" ng-click="loadRfidEventsByUser( user )">Show Events</button></td>
+									</tr>
+								</tbody>
+							</table>
+							</div>
+						</div>
+						<div class="col-xs-12 col-sm-6">
+							<div class="panel panel-default">
+							<div class="panel-heading">RFID Events</div>
+							<table class="table table-striped">
+								<thead>
+									<tr>
+										<th>Time</th>
+										<th>Active</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr ng-repeat="event in rfidEvents | orderBy:'+eventTime':true | limitTo:10">
+										<td>{{ event.eventTime | date:'yyyy-MM-dd HH:mm:ss' }}</td>
+										<td>{{ event.rfid.active }}</td>
+									</tr>
+								</tbody>
+							</table>
+							</div>
+						</div>
+
+					</div>
+
+
+					<!--<a name="rfids">&nbsp;</a>
+					<h1 class="page-header">RFIDs</h1>
+					<div class="row placeholders">
+						<div class="col-xs-12 col-sm-8 col-lg-4">
+							<div class="panel panel-default">
+							<div class="panel-heading">RFIDs</div>
+							<table class="table table-striped">
+								<thead>
+									<tr>
+										<th>id</th>
+										<th>rfid</th>
+										<th>active</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr ng-repeat="rfid in rfids">
+										<td>{{ rfid.id }}</td>
+										<td>{{ rfid.rfid }}</td>
+										<td>{{ rfid.active }}</td>
+									</tr>
+								</tbody>
+							</table>
+							</div>
+						</div>
+					</div>-->
+
+					<!--<h1 class="page-header">Tilt Events</h1>
+					<div class="row placeholders">
+						<div class="col-xs-12 col-sm-8 col-lg-4">
+							<table class="table table-striped">
+								<thead>
+									<th>id</th>
+									<th>open</th>
+									<th>eventTime</th>
+								</thead>
+								<tbody>
+									<tr ng-repeat="tiltEvent in tiltEvents">
+										<td>{{ tiltEvent.id }}</td>
+										<td>{{ tiltEvent.open }}</td>
+										<td>{{ tiltEvent.eventTime | date:'yyyy-MM-dd HH:mm:ss' }}</td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+					</div>-->
+
+					<!--
+					<h2 class="sub-header">Section title</h2>
+					<div class="table-responsive">
+						<table class="table table-striped">
+							<thead>
+								<tr>
+									<th>#</th>
+									<th>Header</th>
+									<th>Header</th>
+									<th>Header</th>
+									<th>Header</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+									<td>1,001</td>
+									<td>Lorem</td>
+									<td>ipsum</td>
+									<td>dolor</td>
+									<td>sit</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>-->
+				</div>
+			</div>
+		</div>
+
+		<!-- Bootstrap core JavaScript
+		================================================== -->
+		<!-- Placed at the end of the document so the pages load faster -->
+		<script src="/assets/js/jquery.min.js"></script>
+		<script src="/assets/js/bootstrap.min.js"></script>
+		<script src="/assets/js/docs.min.js"></script>
+		<script src="/assets/js/angular.min.js"></script>
+		<script src="/assets/js/highcharts.js"></script>
+		<script src="/assets/js/moment-with-locales.js"></script>
+		<script src="/assets/js/bootstrap-datetimepicker.min.js"></script>
+
+		<script>
+		var api_base =  "/data/";
+		var api_base =  "http://the-thing.cfapps.io/";
+		
+		var dateFormat = "YYYY-MM-DD[T]HH:mm:SS.SSS[Z]";
+
+		var chart_weather;
+		var chart_switches;
+
+		$(function () {
+			datetimepicker_config = {
+				format: 'YYYY-MM-DD HH:mm',
+				sideBySide: true
+			}
+			$('#datetimepickerFrom').datetimepicker(datetimepicker_config);
+			$('#datetimepickerTo').datetimepicker(datetimepicker_config);
+			
+			$('#datetimepickerFrom').datetimepicker(datetimepicker_config);
+			$('#datetimepickerTo').datetimepicker(datetimepicker_config);
+			
+			// Init Highcharts defaults
+			Highcharts.setOptions({
+				credits:{
+					enabled:false
+				},
+				legend: {
+						enabled: true
+				},
+				plotOptions: {
+					area: {
+						fillColor: {
+							linearGradient: { x1: 0, y1: 0, x2: 0, y2: 1},
+							stops: [
+								[0, Highcharts.getOptions().colors[0]],
+								[1, Highcharts.Color(Highcharts.getOptions().colors[0]).setOpacity(0).get('rgba')]
+							]
+						},
+						marker: {
+							radius: 2
+						},
+						lineWidth: 1,
+						states: {
+							hover: {
+								eWidth: 1
+							}
+						},
+						threshold: null
+					}
+				}
+			});
+
+			chart_weather = new Highcharts.Chart({
+				chart: {
+					renderTo: 'container-weather',
+						zoomType: 'x'
+				},
+				title: {
+					text: ''
+				},
+				xAxis: {
+					type: 'datetime'
+				},
+				yAxis: {
+					title: {
+						text: 'Temperature / Humidity'
+					}
+				},
+				series: [{
+					type: 'line',
+					name: 'Temperature',
+					pointInterval: 2 * 1000,
+					data: []
+				},{
+					type: 'line',
+					name: 'Humidity',
+					pointInterval: 2 * 1000,
+					data: []
+				}]
+			});
+
+			chart_switches = new Highcharts.Chart({
+				chart: {
+					renderTo: 'container-switches',
+						zoomType: 'x'
+				},
+				title: {
+					text: ''
+				},
+				xAxis: {
+					type: 'datetime'
+				},
+				yAxis: {
+					title: {
+						text: 'Open / Close'
+					}
+				},
+				series: [{
+					type: 'line',
+					name: 'Door',
+					pointInterval: 2 * 1000,
+					data: []
+				}]
+			});
+			// ********************************************************************************
+			//$.get( api_base + api_endpoints[0].url, function( data ) {
+			//	
+			//	jQuery.each(data, function(index, value) {
+			//		console.log(index, value)
+			//	});
+			//}, "json");
+
+
+			// ********************************************************************************
+
+
+		});
+
+		</script>
+
+		<script type="text/javascript">
+
+		var dateFormat = 'yyyy';
+
+		var loadChartDataSwitches = function( data ) {
+			new_series = [[]];
+			//console.log(data[0].eventTime);
+			
+			jQuery.each(data, function(index, value) {
+				new_series[0].push(value.open);
+			});
+
+			chart_switches.series[0].update({
+				//pointStart: data[0].eventTime,
+				//pointInterval: data.interval,
+				data: new_series[0]
+			}, true); // true if you want redraw
+
+		};
+
+		// Define the module for our AngularJS application.
+		var app = angular.module( "Thing", [] );
+
+		// -------------------------------------------------- //
+		// -------------------------------------------------- //
+
+		// I control the main demo.
+		app.controller(
+			"ThingController",
+			function( $scope, thingService ) {
+
+				// I contain the list of friends to be rendered.
+				$scope.users = [];
+				$scope.rfids = [];
+				$scope.rfidEvents = [];
+
+				$scope.tiltSwitches = [];
+				$scope.tiltSwitchesById = [];
+				$scope.tiltEvents = [];
+				$scope.weatherReadings = [];
+				$scope.weatherStats = [];
+
+				$scope.datetimeFrom = '';
+				$scope.datetimeTo = '';
+
+				$scope.form = {
+					name: ""
+				};
+
+				loadRemoteDataUsers();
+				loadRemoteDataRfids();
+				loadRemoteDataRfidByUser(1);
+				loadRemoteDataTiltSwitches();
+				loadRemoteDataTiltEventsByTildId("need-a-sensor-id", "between", "2015-01-20T00:00:00.000Z", "2015-11-12T00:00:00.000Z");
+				loadRemoteDataWeatherReadingsBySensorid("need-a-sensor-id", "between", "2015-01-28T00:00:00.000Z", "2015-11-12T00:00:00.000Z");
+
+				function applyRemoteData( newUsers ) {
+					$scope.users = newUsers;
+				}
+
+				function loadRemoteDataUsers() {
+					thingService.getAllUsers()
+						.then(
+							function( users ) {
+								$scope.users = users;
+							}
+						)
+					;
+				}
+
+				function loadRemoteDataRfids() {
+					thingService.getAllRfids()
+						.then(
+							function( rfids ) {
+								$scope.rfids = rfids;
+							}
+						)
+					;
+				}
+
+				function loadRemoteDataRfidEvents() {
+					thingService.getAllRfidEvents()
+						.then(
+							function( rfids ) {
+								$scope.rfidEvents = rfidEvents;
+							}
+						)
+					;
+				}
+
+				$scope.refreshData = function () {
+					momentFrom = moment( $('#datetimepickerFrom').val() );
+					momentTo = moment( $('#datetimepickerTo').val() );
+					
+					$scope.datetimeFrom = momentFrom.format();
+					$scope.datetimeTo = momentTo.format(dateFormat);
+
+					console.log( $scope.datetimeFrom );
+					console.log( $scope.datetimeTo );
+				}
+
+				$scope.loadRfidEventsByUser = function( user ) {
+					
+					thingService.getAllRfidEvents( user.rfid.rfid )
+						.then(
+							function( rfidEvents ) {
+								$scope.rfidEvents = rfidEvents;
+							}
+						)
+					;
+				}
+
+				function loadRemoteDataRfidByUser( id ) {
+					thingService.getRfidByUser( id )
+						.then(
+							function( rfid ) {
+								//$scope.rfids = rfids;
+							}
+						)
+					;
+				}
+
+				function loadRemoteDataTiltSwitches() {
+					thingService.getAllTiltSwitches()
+						.then(
+							function( tiltSwitches ) {
+								$scope.tiltSwitches = tiltSwitches;
+							}
+						)
+					;
+				}
+
+				function loadChartDataWeather( data ) {
+					var new_series = [[],[]];
+
+					var weatherStats = {
+						'temp': {
+							'total': 0,
+							'min': 999999999,
+							'max': -999999999,
+							'avg': 0,
+							'latest': 0
+						},
+						'humi':{
+							'total': 0,
+							'min': 999999999,
+							'max': -999999999,
+							'avg': 0,
+							'latest': 0
+						}
+					}
+					
+					jQuery.each(data, function(index, value) {
+						new_series[0].push(value.temperature);
+						weatherStats.temp.total += value.temperature;
+						if (value.temperature < weatherStats.temp.min){
+							weatherStats.temp.min = value.temperature;
+						}
+						if (value.temperature > weatherStats.temp.max){
+							weatherStats.temp.max = value.temperature;
+						}
+						
+						
+						new_series[1].push(value.humidity);
+						weatherStats.humi.total += value.humidity;
+						if (value.humidity < weatherStats.humi.min){
+							weatherStats.humi.min = value.humidity;
+						}
+						if (value.humidity > weatherStats.temp.max){
+							weatherStats.humi.max = value.humidity;
+						}
+					});
+
+					weatherStats.temp.avg = Math.round( (weatherStats.temp.total / data.length) * 100) / 100;
+					weatherStats.humi.avg = Math.round( (weatherStats.humi.total / data.length) * 100) / 100;
+
+					weatherStats.temp.latest = data[data.length-1].temperature;
+					weatherStats.humi.latest = data[data.length-1].humidity;
+
+					$scope.weatherStats = weatherStats;
+
+					chart_weather.series[0].update({
+						pointStart: data[0].eventTime,
+						//pointInterval: data.interval,
+						data: new_series[0]
+					}, true); // true if you want redraw
+
+					chart_weather.series[1].update({
+						pointStart: data[0].eventTime,
+						//pointInterval: data.interval,
+						data: new_series[1]
+					}, true); // true if you want redraw
+
+					//$( ".result" ).html( data );
+					//alert( "Load was performed." );
+				};
+
+
+				function loadRemoteDataTiltEventsByTildId( id, pre, from, to ) {
+					thingService.getAllTiltEventsByTildId(id, pre, from, to)
+						.then(
+							function( tiltEvents ) {
+								for (i = 0; i< tiltEvents.length; i++){
+									if (tiltEvents[i].open == true){
+										tiltEvents[i].open = 1;
+									} else {
+										tiltEvents[i].open = -1;
+									}
+								}
+
+								// Temp code to remove duplicates
+								tiltEventsCompact = [tiltEvents[0].open];
+								console.log(tiltEventsCompact);
+								
+								jQuery.each(tiltEvents, function(index, value) {
+									if (tiltEventsCompact[tiltEventsCompact.length-1] != value.open){
+										tiltEventsCompact.push(value.open);
+									} else {
+										console.log("ignore");
+									}
+								});
+
+								//console.log(tiltEventsCompact);
+								$scope.tiltEvents = tiltEventsCompact;
+								loadChartDataSwitches(tiltEvents);
+							}
+						)
+					;
+				}
+
+				function loadRemoteDataWeatherReadingsBySensorid( id, pre, from, to ) {
+					thingService.getAllWeatherReadingsBySensorid(id, pre, from, to)
+						.then(
+							function( weatherReadings ) {
+								$scope.weatherReadings = weatherReadings;
+								loadChartDataWeather(weatherReadings);
+							}
+						)
+					;
+				}
+			}
+		);
+
+		// -------------------------------------------------- //
+		// -------------------------------------------------- //
+
+		// I act a repository for the remote friend collection.
+		app.service(
+			"thingService",
+			function( $http, $q ) {
+				// Return public API.
+				return({
+					getAllRfids: getAllRfids,
+					getAllRfidEvents: getAllRfidEvents,
+					getAllUsers: getAllUsers,
+					getRfidByUser: getRfidByUser,
+					getAllTiltSwitches: getAllTiltSwitches,
+					getAllTiltSwitchesByTildId: getAllTiltSwitchesByTildId,
+					getAllTiltEventsByTildId: getAllTiltEventsByTildId,
+					getAllWeatherReadingsBySensorid: getAllWeatherReadingsBySensorid
+				});
+
+				// ---
+				// PUBLIC METHODS.
+				// ---
+
+				function getAllUsers() {
+					var request = $http({
+						method: "get",
+						url: api_base + "get-all-users"
+					});
+					return( request.then( handleSuccess, handleError ) );
+				}
+
+				function getAllRfids( ) {
+					var request = $http({
+						method: "get",
+						url: api_base + "get-all-rfids"
+					});
+					return( request.then( handleSuccess, handleError ) );
+				}
+
+				function getAllRfidEvents( id ) {
+					var request = $http({
+						method: "get",
+						url: api_base + "get-rfid-events-by-rfid/" + id
+					});
+					return( request.then( handleSuccess, handleError ) );
+				}
+
+				function getRfidByUser( id ) {
+					var request = $http({
+						method: "get",
+						url: api_base + "get-rfid-by-user/" + id
+					});
+					return( request.then( handleSuccess, handleError ) );
+				}
+
+				function getAllTiltSwitches() {
+					var request = $http({
+						method: "get",
+						url: api_base + "get-all-tilt-switches"
+					});
+					return( request.then( handleSuccess, handleError ) );
+				}
+
+				function getAllTiltSwitchesByTildId( id ) {
+					var request = $http({
+						method: "get",
+						url: api_base + "get-tilt-switches-by-tiltId/" + id
+					});
+					return( request.then( handleSuccess, handleError ) );
+				}
+
+				function getAllTiltEventsByTildId( id, pre, from, to ) {
+					var request = $http({
+						method: "get",
+						url: api_base + "get-all-tilt-events-by-tiltId/" + id + "/" + pre + "/" + from + "/" + to
+					});
+					return( request.then( handleSuccess, handleError ) );
+				}
+				
+				function getAllWeatherReadingsBySensorid( id, pre, from, to ) {
+					var request = $http({
+						method: "get",
+						url: api_base + "get-all-weather-readings-by-sensorid/" + id + "/" + pre + "/" + from + "/" + to
+					});
+					return( request.then( handleSuccess, handleError ) );
+				}
+
+				// ---
+				// PRIVATE METHODS.
+				// ---
+
+				// I transform the error response, unwrapping the application dta from
+				// the API response payload.
+				function handleError( response ) {
+					// The API response from the server should be returned in a
+					// nomralized format. However, if the request was not handled by the
+					// server (or what not handles properly - ex. server error), then we
+					// may have to normalize it on our end, as best we can.
+					if (
+						! angular.isObject( response.data ) ||
+						! response.data.message
+						) {
+						return( $q.reject( "An unknown error occurred." ) );
+					}
+					// Otherwise, use expected error message.
+					return( $q.reject( response.data.message ) );
+				}
+
+				// I transform the successful response, unwrapping the application data
+				// from the API response payload.
+				function handleSuccess( response ) {
+					return( response.data );
+				}
+			}
+		);
+	</script>
+	</body>
+</html>

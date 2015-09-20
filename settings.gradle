@@ -1,0 +1,1 @@
+include "cf-ClimateMicroService", "cf-cloud-config-server", "cf-Dashboard-MicroService", "cf-eureka-server", "cf-API-Microservice", "cf-RFID-TiltSW-MicroService"

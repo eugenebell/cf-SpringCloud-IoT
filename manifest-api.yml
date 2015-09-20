@@ -1,0 +1,12 @@
+---
+timeout: 180
+instances: 1
+memory: 512M
+#buildpack: toms-java-buildpack
+env:
+    SPRING_PROFILES_DEFAULT: cloud
+    JAVA_OPTS: -Djava.security.egd=file:///dev/urandom
+applications:
+- name: iot-api
+  path: cf-API-Microservice/build/libs/api-microservice-0.1.jar
+  services: [ iotPostgresDB, eureka-service ]
