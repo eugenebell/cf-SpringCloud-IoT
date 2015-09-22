@@ -9,4 +9,4 @@ env:
 applications:
 - name: iot-api
   path: cf-API-Microservice/build/libs/api-microservice-0.1.jar
-  services: [ iotPostgresDB, eureka-service ]
+  services: [ arduinoPostgres, eureka-service ]

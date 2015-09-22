@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <projectDescription>
 	<name>cf-RFID-TiltSW-MicroService</name>
-	<comment></comment>
+	<comment>Micro-service to manage portfolios</comment>
 	<projects>
 	</projects>
 	<buildSpec>

@@ -2,11 +2,12 @@
 timeout: 180
 instances: 1
 memory: 330M
+no-route: true
 #buildpack: toms-java-buildpack
 env:
     SPRING_PROFILES_DEFAULT: cloud
     JAVA_OPTS: -Djava.security.egd=file:///dev/urandom
 applications:
-- name: quotes
+- name: climate-ms
   path: cf-ClimateMicroService/build/libs/climate-microservice-0.1.jar
   services: [ eureka-service ]

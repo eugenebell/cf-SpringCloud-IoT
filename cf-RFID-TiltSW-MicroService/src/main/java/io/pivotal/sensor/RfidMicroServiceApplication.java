@@ -20,11 +20,11 @@ import org.springframework.context.annotation.Bean;
 @SpringBootApplication
 public class RfidMicroServiceApplication {
 
-	@Value ("${rabbit.queue.name.rfid}")
-	private String queueNameRFID;// = "arduino-rfid-event-queue";
-	@Value ("${rabbit.queue.name.tilt}")
-	private String queueNameTilt;// = "arduino-tilt-event-queue";
-	@Value ("${rabbit.mqtt.exchange.name}")
+	//@Value ("${rabbit.queue.name.rfid}")
+	private String queueNameRFID = "arduino-rfid-event-queue";
+	//@Value ("${rabbit.queue.name.tilt}")
+	private String queueNameTilt = "arduino-tilt-event-queue";
+	//@Value ("${rabbit.mqtt.exchange.name}")
 	String exchangeName = "arduino-iot-exchange";
 
 	@Autowired

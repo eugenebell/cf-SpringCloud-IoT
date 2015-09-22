@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <projectDescription>
 	<name>cf-API-Microservice</name>
-	<comment></comment>
+	<comment>Micro-service to deal with API calls</comment>
 	<projects>
 	</projects>
 	<buildSpec>

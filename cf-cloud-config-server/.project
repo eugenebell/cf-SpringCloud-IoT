@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <projectDescription>
 	<name>cf-cloud-config-server</name>
-	<comment></comment>
+	<comment>Config Server for micro services</comment>
 	<projects>
 	</projects>
 	<buildSpec>
