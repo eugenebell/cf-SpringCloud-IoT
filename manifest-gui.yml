@@ -1,0 +1,7 @@
+---
+timeout: 180
+instances: 1
+memory: 512M
+applications:
+- name: iot-gui
+  path: cf-Dashboard-MicroService/
