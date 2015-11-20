@@ -2,11 +2,11 @@ package io.pivotal.sensor.model;
 
 import java.util.Date;
 
-import org.springframework.data.annotation.Id;
+//import org.springframework.data.annotation.Id;
 
 public class Weather {
 
-	@Id
+//	@Id
 	private String id;
 
 	private String sensorID;

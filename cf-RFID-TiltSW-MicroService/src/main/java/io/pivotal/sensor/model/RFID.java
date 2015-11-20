@@ -13,6 +13,8 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 @Table(name = "RFID")
 public class RFID {
@@ -27,6 +29,7 @@ public class RFID {
 	private Date createdTime;
 	private Boolean active;
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "rfid", orphanRemoval = true)
+	@JsonIgnore
 	private List<RFIDEvent> rfidEvents = new ArrayList<RFIDEvent>();
 	
 	public Long getId() {

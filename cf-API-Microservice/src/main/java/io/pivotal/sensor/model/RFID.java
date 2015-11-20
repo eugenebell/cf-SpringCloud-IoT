@@ -4,31 +4,31 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
+//import javax.persistence.CascadeType;
+//import javax.persistence.Column;
+//import javax.persistence.Entity;
+//import javax.persistence.GeneratedValue;
+//import javax.persistence.GenerationType;
+//import javax.persistence.Id;
+//import javax.persistence.OneToMany;
+//import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
-@Entity
-@Table(name = "RFID")
+//@Entity
+//@Table(name = "RFID")
 public class RFID {
 
-	@Id
-	@Column(name="RFID_ID")
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+//	@Id
+//	@Column(name="RFID_ID")
+//	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-	@Column(name="RFID")
+//	@Column(name="RFID")
 	private String rfid;
-	@Column(name="CREATEDTIME")
+//	@Column(name="CREATEDTIME")
 	private Date createdTime;
 	private Boolean active;
-	@OneToMany(cascade = CascadeType.ALL, mappedBy = "rfid", orphanRemoval = true)
+//	@OneToMany(cascade = CascadeType.ALL, mappedBy = "rfid", orphanRemoval = true)
 	@JsonIgnore
 	private List<RFIDEvent> rfidEvents = new ArrayList<RFIDEvent>();
 	

@@ -2,31 +2,31 @@ package io.pivotal.sensor.model;
 
 import java.util.Date;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
+//import javax.persistence.Column;
+//import javax.persistence.Entity;
+//import javax.persistence.GeneratedValue;
+//import javax.persistence.GenerationType;
+//import javax.persistence.Id;
+//import javax.persistence.JoinColumn;
+//import javax.persistence.ManyToOne;
+//import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
-@Entity
-@Table(name = "TILT_SWITCH_EVENT")
+//@Entity
+//@Table(name = "TILT_SWITCH_EVENT")
 public class TiltSwitchEvent {
 
-	@Id
-	@Column(name="TILT_SWITCH_EVENT_ID")
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+//	@Id
+//	@Column(name="TILT_SWITCH_EVENT_ID")
+//	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	private Boolean open;
-	@ManyToOne
-	@JoinColumn(name = "TILT_SWITCH_ID")
+//	@ManyToOne
+//	@JoinColumn(name = "TILT_SWITCH_ID")
 	@JsonIgnore
 	private TiltSwitch tiltSwitch;
-	@Column(name="EVENTTIME")
+//	@Column(name="EVENTTIME")
 	private Date eventTime;
 	
 	public Long getId() {

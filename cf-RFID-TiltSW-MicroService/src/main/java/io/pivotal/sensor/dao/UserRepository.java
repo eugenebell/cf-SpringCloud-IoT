@@ -1,8 +1,8 @@
 package io.pivotal.sensor.dao;
 
-import io.pivotal.sensor.model.User;
-
 import org.springframework.data.repository.CrudRepository;
+
+import io.pivotal.sensor.model.User;
 
 
 public interface UserRepository extends CrudRepository<User, Long> {
