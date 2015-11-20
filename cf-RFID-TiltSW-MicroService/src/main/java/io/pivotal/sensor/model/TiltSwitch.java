@@ -13,6 +13,8 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 @Table(name = "TILT_SWITCH")
 public class TiltSwitch {
@@ -26,6 +28,7 @@ public class TiltSwitch {
 	@Column(name="CREATEDTIME")
 	private Date createdTime;
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "tiltSwitch", orphanRemoval = true)
+	@JsonIgnore
 	private List<TiltSwitchEvent> tiltSwitchEvents = new ArrayList<TiltSwitchEvent>();
 	
 	public Long getId() {

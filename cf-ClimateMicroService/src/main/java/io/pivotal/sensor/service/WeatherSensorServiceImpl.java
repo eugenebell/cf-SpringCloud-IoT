@@ -13,31 +13,74 @@ import org.springframework.stereotype.Service;
 public class WeatherSensorServiceImpl implements WeatherSensorService {
 
 	@Autowired
-	private WeatherSensorRepository repository;
+	private WeatherSensorRepository weatherSensorRepository;
 	
 	@Override
 	public Weather saveWeatherSensorReading(Weather weather) {
-		return repository.save(weather);
+		return weatherSensorRepository.save(weather);
+	}
+
+//	@Override
+//	public List<Weather> findBySensorID(String sensorID) {
+//		return weatherSensorRepository.findBySensorID(sensorID);
+//	}
+
+//	@Override
+//	public Weather findWeatherSensorReading(String sensorID, Date startTime, Date endTime) {
+//		return weatherSensorRepository.findBySensorIDAndEventTimeBetween(sensorID, startTime, endTime);
+//	}
+
+//	@Override
+//	public Weather findWeatherSensorReadingAfterDate(String sensorID, Date time) {
+//		return weatherSensorRepository.findBySensorIDAndEventTimeIsAfter(sensorID, time);
+//	}
+
+//	@Override
+//	public Weather findWeatherSensorReadingBeforeDate(String sensorID, Date time) {
+//		return weatherSensorRepository.findBySensorIDAndEventTimeIsBefore(sensorID, time);
+//	}
+
+	@Autowired
+	public void setWeatherSensorRepository(WeatherSensorRepository weatherSensorRepository) {
+		this.weatherSensorRepository = weatherSensorRepository;
 	}
 
 	@Override
-	public List<Weather> findBySensorID(String sensorID) {
-		return repository.findBySensorID(sensorID);
+	public Iterable<Weather> findBySensorID(String sensorID) {
+//		return getDummyData();
+		return weatherSensorRepository.findBySensorID(sensorID);
 	}
 
 	@Override
-	public Weather findWeatherSensorReading(String sensorID, Date startTime, Date endTime) {
-		return repository.findBySensorIDAndEventTimeBetween(sensorID, startTime, endTime);
+	public Iterable<Weather> findWeatherSensorReadingBetween(String sensorID, Date startTime, Date endTime) {
+//		return getDummyData();
+		return weatherSensorRepository.findBySensorIDAndEventTimeBetween(sensorID, startTime, endTime);
 	}
 
-	@Override
-	public Weather findWeatherSensorReadingAfterDate(String sensorID, Date time) {
-		return repository.findBySensorIDAndEventTimeIsAfter(sensorID, time);
-	}
+//	@Override
+//	public List<Weather> findWeatherSensorReadingAfterDate(String sensorID, Date time) {
+//		return weatherSensorRepository.findBySensorIDAndEventTimeIsAfter(sensorID, time);
+//	}
+//
+//	@Override
+//	public List<Weather> findWeatherSensorReadingBeforeDate(String sensorID, Date time) {
+//		return weatherSensorRepository.findBySensorIDAndEventTimeIsBefore(sensorID, time);
+//	}
 
-	@Override
-	public Weather findWeatherSensorReadingBeforeDate(String sensorID, Date time) {
-		return repository.findBySensorIDAndEventTimeIsBefore(sensorID, time);
-	}
-
+//	private List<Weather> getDummyData() {
+//		List<Weather> ws = new ArrayList<Weather>();
+//		Weather w1 = new Weather();
+//		w1.setHumidity(15.0);
+//		w1.setSensorID("201");
+//		w1.setTemperature(23.4);
+//		w1.setEventTime(new Date(1421160868284l));
+//		ws.add(w1);
+//		Weather w = new Weather();
+//		w.setHumidity(15.2);
+//		w.setSensorID("201");
+//		w.setTemperature(23.2);
+//		w.setEventTime(new Date(1421160828284l));
+//		ws.add(w);
+//		return ws;
+//	}
 }

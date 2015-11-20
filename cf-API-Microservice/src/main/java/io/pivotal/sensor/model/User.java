@@ -2,29 +2,29 @@ package io.pivotal.sensor.model;
 
 import java.util.Date;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToOne;
-import javax.persistence.Table;
+//import javax.persistence.Column;
+//import javax.persistence.Entity;
+//import javax.persistence.GeneratedValue;
+//import javax.persistence.GenerationType;
+//import javax.persistence.Id;
+//import javax.persistence.JoinColumn;
+//import javax.persistence.OneToOne;
+//import javax.persistence.Table;
 
-@Entity
-@Table(name = "USERS")
+//@Entity
+//@Table(name = "USERS")
 public class User {
 
-	@Id
-	@Column(name="USER_ID")
-	@GeneratedValue(strategy = GenerationType.AUTO)
+//	@Id
+//	@Column(name="USER_ID")
+//	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
 	private String firstname;
 	private String lastname;
-	@Column(name="CREATEDTIME")
+//	@Column(name="CREATEDTIME")
 	private Date createdTime;
-	@OneToOne
-	@JoinColumn(name = "RFID_ID")
+//	@OneToOne
+//	@JoinColumn(name = "RFID_ID")
 	private RFID rfid;
 	
 	public Long getId() {

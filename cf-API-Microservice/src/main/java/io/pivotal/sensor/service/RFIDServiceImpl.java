@@ -1,56 +1,45 @@
 package io.pivotal.sensor.service;
 
-import io.pivotal.sensor.dao.RFIDEventSensorRepository;
-import io.pivotal.sensor.dao.RFIDSensorRepository;
-import io.pivotal.sensor.dao.UserRepository;
+import java.util.Date;
+
+import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestTemplate;
+
 import io.pivotal.sensor.model.RFID;
 import io.pivotal.sensor.model.RFIDEvent;
 import io.pivotal.sensor.model.User;
 
-import java.util.Date;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
 @Service
 public class RFIDServiceImpl implements RFIDSensorService {
 
-	private RFIDEventSensorRepository rfidEventRepository;
-	private RFIDSensorRepository rfidRepository;
-	private UserRepository userRepository;
+	final String uri = "http://sensors-microservice.cfapps.io/";
+    
+    RestTemplate restTemplate = new RestTemplate();
+   
 
-	@Autowired
-	public void setRfidEventRepository(RFIDEventSensorRepository rfidEventRepository) {
-		this.rfidEventRepository = rfidEventRepository;
-	}
-
-	@Autowired
-	public void setRfidRepository(RFIDSensorRepository rfidRepository) {
-		this.rfidRepository = rfidRepository;
-	}
-
-	@Autowired
-	public void setUserRepository(UserRepository userRepository) {
-		this.userRepository = userRepository;
-	}
-
+	//+"get-all-rfids"
+	//+"get-rfid-events-by-rfid/need-a-sensor-id"
+	//+"get-rfid-by-user/1"
+	//+"get-all-rfid-events-by-rfid/need-a-sensor-id/between/2014-06-12T00:00:00.000Z/2015-11-12T00:00:00.000Z"
+			
+    
 	@Override
 	public Iterable<RFIDEvent> findAllRfidEventsByRfid(String rfid) {
 		// r.setRfidEvents(rs);
 //		return returnDummyRfidEvents();
-		return rfidEventRepository.findByRfidRfid(rfid);
+		return restTemplate.getForObject(uri + "get-rfid-events-by-rfid/" + rfid, Iterable.class);//rfidEventRepository.findByRfidRfid(rfid);
 	}
 
 	@Override
 	public Iterable<RFID> findAllRfid() {
 //		return getDummyData12();
-		return rfidRepository.findAll();
+		return restTemplate.getForObject(uri + "get-all-rfids", Iterable.class);//rfidRepository.findAll();
 	}
 
 	@Override
 	public RFID findRFIDByUserId(Long userId) {
 		//return getDummyData13();
-		User u = userRepository.findOne(userId);
+		User u = restTemplate.getForObject(uri + "get-rfid-by-user/" + userId, User.class);//userRepository.findOne(userId);
 		if (u != null) {
 			return u.getRfid();
 		} else {
@@ -62,7 +51,7 @@ public class RFIDServiceImpl implements RFIDSensorService {
 	public Iterable<RFIDEvent> findAllRfidEventsByRfidBetween(String rfid, Date startTime, Date endTime) {
 //		System.out.println(startTime + " --- " + endTime);
 //		return returnDummyRfidEvents();
-		return rfidEventRepository.findByRfidRfidAndEventTimeBetween(rfid, startTime, endTime);
+		return restTemplate.getForObject(uri + "get-all-rfid-events-by-rfid/" + rfid + "/between/" + startTime + "/" + endTime, Iterable.class);//rfidEventRepository.findByRfidRfidAndEventTimeBetween(rfid, startTime, endTime);
 	}
 
 

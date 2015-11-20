@@ -1,25 +1,30 @@
 package io.pivotal.sensor.service;
 
-import io.pivotal.sensor.dao.UserRepository;
-import io.pivotal.sensor.model.User;
-
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestTemplate;
+
+import io.pivotal.sensor.model.User;
 
 @Service
 public class UsersServiceImpl implements UsersService {
 
-	private UserRepository userRepository;
+//	private UserRepository userRepository;
 	
-	@Autowired
-	public void setUserRepository(UserRepository userRepository) {
-		this.userRepository = userRepository;
-	}
+//	@Autowired
+//	public void setUserRepository(UserRepository userRepository) {
+//		this.userRepository = userRepository;
+//	}
 
+	final String uri = "http://sensors-microservice.cfapps.io/";
+    
+    RestTemplate restTemplate = new RestTemplate();
+    
+	//+"get-all-users"
+	
 	@Override
 	public Iterable<User> findAllUsers() {
 		// return getDummyData();
-		return userRepository.findAll();
+		return restTemplate.getForObject(uri + "get-all-users", Iterable.class);//userRepository.findAll();
 	}
 
 //	private Iterable<User> getDummyData() {
