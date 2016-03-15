@@ -3,7 +3,7 @@ timeout: 180
 instances: 1
 memory: 330M
 #no-route: true
-#buildpack: toms-java-buildpack
+#buildpack: java_buildpack
 env:
     SPRING_PROFILES_DEFAULT: cloud
     JAVA_OPTS: -Djava.security.egd=file:///dev/urandom
