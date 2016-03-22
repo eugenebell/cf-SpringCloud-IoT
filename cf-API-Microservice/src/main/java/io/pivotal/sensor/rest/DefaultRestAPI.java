@@ -32,8 +32,7 @@ public class DefaultRestAPI {
 				+"</br> Coming soon..... </br>"
 				+"http://the-thing.cfapps.io/get-all-gas-smoke-events-by-sensorid/09 </br>"
 				+"http://the-thing.cfapps.io/get-all-gas-smoke-events-by-sensorid/12/between/2014-06-12T00:00:00.000Z/2014-11-12T00:00:00.000Z </br>";
-							 
-							 
+							 					 
 	}
 
 	
