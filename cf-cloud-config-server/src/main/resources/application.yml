@@ -1,0 +1,11 @@
+server:
+  port: 8887
+
+spring:
+  application:
+    name: iot-config-service
+  cloud:
+    config:
+      server:
+        git:
+          uri: https://github.com/eugenebell/IoT-Cloud-Config-Server-Repo
